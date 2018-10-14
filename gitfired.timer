@@ -1,0 +1,10 @@
+[Unit]
+Description = Run python_daemon every five minutes
+
+[Timer]
+OnBootSec=0min
+OnCalendar = *-*-* *:*:0/10
+AccuracySec = 1sec
+
+[Install]
+WantedBy = timers.target
