@@ -3,6 +3,7 @@ Description = First Python Daemon
 
 [Service]
 Type = simple
-ExecStart = /usr/bin/python -u /home/spooderman/Documents/gitfire/try.py
+ExecStart = /usr/bin/python -u /home/spooderman/Documents/gitfire/gitfire.py
+User = spooderman
 StandardOutput = journal
 StandardError = journal
