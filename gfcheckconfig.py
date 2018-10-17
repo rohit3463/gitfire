@@ -28,6 +28,9 @@ except (configparser.NoOptionError, KeyError):
 except GitError.InvalidGitRepositoryError as e:
     print("{0}: Invalid git repo".format(str(e)))
 
+except GitError.NoSuchPathError as e:
+    print("{0}: No such git repo".format(str(e)))
+
 try:
     process = subprocess.run(["ssh", "-T", "git@github.com"], capture_output=True, check=True)
     
