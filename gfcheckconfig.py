@@ -2,6 +2,7 @@ import git.exc as GitError
 import git.repo
 import getpass
 import configparser
+import subprocess
 
 try:
     config_file = "/home/{0}/.config/gitfire.conf".format(getpass.getuser())
@@ -26,3 +27,16 @@ except (configparser.NoOptionError, KeyError):
 
 except GitError.InvalidGitRepositoryError as e:
     print("{0}: Invalid git repo".format(str(e)))
+
+try:
+    process = subprocess.run(["ssh", "-T", "git@github.com"], capture_output=True, check=True)
+    
+except subprocess.CalledProcessError as Error:
+    output = Error.stdout.decode("utf-8")
+    
+    try:
+        assert (output.find("You've successfully authenticated") == -1), "SSH on GitHub not setup"
+        print("SSH on GitHub setup correctly")
+
+    except AssertionError as e:
+        print("Error: {0}", str(e))
