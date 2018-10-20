@@ -14,7 +14,7 @@ def getGitRepo():
     config = configparser.ConfigParser()
     config.read("/home/{0}/.config/gitfire.conf".format(getuser()))
 
-    return config['DEFAULT']['yo']
+    return config['DEFAULT']['GIT_FIRE_REPO']
 
 def FireInTheHole():
     try:
@@ -23,6 +23,9 @@ def FireInTheHole():
 
         repo = git.Repo(gitRepo)
         branch = 'fire' + str(datetime.now())
+
+        branch = branch.replace(" ", "+")
+        branch = branch.replace(":", "-")
 
         repo.git.checkout('-b', branch)
         repo.git.add('-A')
@@ -33,7 +36,7 @@ def FireInTheHole():
     except KeyError:
         sys.stderr.write("Error in reading config file, Please Check")
     
-    finally:
+    else:
         repo.close()
 
 try:
@@ -49,5 +52,5 @@ try:
 except SerialException:
     sys.stderr.write("Arduino not connected to serial port")
 
-finally:
+else:
     ser.close()
