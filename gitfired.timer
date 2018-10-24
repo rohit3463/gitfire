@@ -1,5 +1,5 @@
 [Unit]
-Description = Run python_daemon every five minutes
+Description = Run gitfire daemon every five minutes
 
 [Timer]
 OnBootSec=0min

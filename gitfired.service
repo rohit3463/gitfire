@@ -1,5 +1,5 @@
 [Unit]
-Description = First Python Daemon
+Description = gitrfire daemon
 
 [Service]
 Type = simple
