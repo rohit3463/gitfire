@@ -11,6 +11,8 @@ void setup() {
     Serial.begin(9600);
 }
 
+void(* resetFunc) (void) = 0; //declare reset function @ address 0
+
 void loop() {
     count = 0;
     last_millis = millis();
@@ -21,9 +23,12 @@ void loop() {
 
         if(count >= blink_no) {
             flag = true;
-
-            Serial.println("1");
-            Serial.end();
+        
+            while(Serial.available() <= 0)
+                Serial.println("1");
+            
+            Serial.end();    
+            resetFunc();  //call reset
 
             break;
         }
