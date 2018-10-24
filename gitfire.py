@@ -29,6 +29,7 @@ def FireInTheHole():
 
         repo.git.checkout('-b', branch)
         repo.git.add('-A')
+        repo.git.commit('-m', 'Fire! Adding commiting all files')
         repo.git.push('origin', branch)
 
         sys.stdout.write("Pushed to remote branch: {0}".format(branch))
@@ -40,17 +41,15 @@ def FireInTheHole():
         repo.close()
 
 try:
-    ser = Serial(get_serial_port(), 9600)
-    fire_state = '0'
+    with Serial(get_serial_port(), 9600) as ser:
+        fire_state = '0'
+        fire_state = ser.readline().decode("utf-8")
 
-    fire_state = ser.readline().decode("utf-8")
+        ser.write(b'1')
 
-    if fire_state != '0':
-        sys.stdout.write("FIRE!!")
-        FireInTheHole()
+        if fire_state != '0':
+            sys.stdout.write("FIRE!!")
+            FireInTheHole()
 
 except SerialException:
     sys.stderr.write("Arduino not connected to serial port")
-
-else:
-    ser.close()
