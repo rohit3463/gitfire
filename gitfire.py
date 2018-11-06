@@ -45,9 +45,8 @@ try:
         fire_state = '0'
         fire_state = ser.readline().decode("utf-8")
 
-        ser.write(b'1')
-
         if fire_state != '0':
+            ser.write(b'1')
             sys.stdout.write("FIRE!!")
             FireInTheHole()
 
